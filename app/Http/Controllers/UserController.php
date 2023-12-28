@@ -61,4 +61,11 @@ class UserController extends Controller
 
         return redirect('/admin/users')->with('message', 'User updated successfully!');
     }
+
+    //delete employee
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect('/admin/users')->with('message', 'Employee deleted successfully');
+    }
 }
