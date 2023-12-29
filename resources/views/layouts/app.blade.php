@@ -24,9 +24,9 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+            <header class="">
+                <div class="max-w-7xl mx-auto px-8 pt-8 font-bold text-2xl">
+                    <div>Welcome, {{ Auth::user()->name }}</div>
                 </div>
             </header>
         @endif
