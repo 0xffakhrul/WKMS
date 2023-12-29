@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ProfileController;
@@ -51,10 +52,15 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::get('/admin/attendances', [AttendanceController::class, 'index'])->name('admin.attendances.index');
 });
 
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/staff/dashboard', [StaffController::class, 'StaffDashboard'])->name('staff.dashboard');
     Route::get('/staff/leaves/create', [LeaveController::class, 'empCreate'])->name('staff.leaves.create');
     Route::post('/staff/leaves', [LeaveController::class, 'empStore'])->name('staff.leaves.store');
+
+    Route::get('/staff/attendances/create', [AttendanceController::class, 'empCreate'])->name('staff.attendances.create');
+    Route::post('/staff/attendances', [AttendanceController::class, 'empStore'])->name('staff.attendances.store');
 });
