@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //show all listings
-    public function index()
+    //show all listings with pagination
+    public function index(Request $request)
     {
-        return view('admin.users.index', [
-            'users' => User::all()
-        ]);
+        $search = $request->input('search');
+        $users = User::when($search, function ($query) use ($search) {
+            return $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%')
+                ->orWhere('phone_number', 'like', '%' . $search . '%');
+        })->paginate(10);
+
+        return view('users.index', compact('users', 'search'));
     }
+
 
     //create form
     public function create()
