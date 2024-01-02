@@ -1,16 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="pb-6 text-gray-900 font-bold text-3xl">
-                {{ __('Edit ' . $user->name) }}
+        <div class="max-w-7xl mx-auto px-8 flex flex-col gap-y-6">
+            <div>
+                <div class="text-gray-900 text-2xl font-bold pt-10">
+                    {{ __('Edit ' . $user->name) }}
+                </div>
             </div>
-
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <form method="POST" action="{{ url('/admin/users/' . $user->id) }}" class="p-6"
                     enctype="multipart/form-data">
@@ -55,7 +50,7 @@
 
                             <div class="pb-4">
                                 <label for="hire_date" class="block mb-2 text-sm font-medium">Hire Date</label>
-                                <input type="date" id="hire_date" name="hire_date" value="{{ old('hire_date') }}"
+                                <input type="date" id="hire_date" name="hire_date" value="{{ $user->hire_date }}"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Select date" required>
                             </div>
