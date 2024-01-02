@@ -24,16 +24,17 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="">
-                <div class="max-w-7xl mx-auto px-8 pt-8 font-bold text-2xl">
+            <header class="ml-64">
+                <div class="max-w-7xl mx-auto px-8 pt-20 font-bold text-2xl">
                     <div>Welcome, {{ Auth::user()->name }}</div>
                 </div>
             </header>
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="ml-64">
             {{ $slot }}
+            <x-flash-message />
         </main>
     </div>
 </body>
