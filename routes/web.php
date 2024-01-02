@@ -39,12 +39,20 @@ require __DIR__ . '/auth.php';
 Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/employees', [EmployeeController::class, 'index'])->name('admin.employees.index');
-    Route::get('/admin/leaves', [LeaveController::class, 'index'])->name('admin.leaves.index');
+
     Route::get('/admin/employees/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
     Route::post('/admin/employees', [EmployeeController::class, 'store'])->name('admin.employees.store');
     Route::get('/admin/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
     Route::put('/admin/employees/{employee}', [EmployeeController::class, 'update'])->name('admin.employees.update');
     Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy'])->name('admin.employees.destroy');
+
+    Route::get('/admin/leaves', [LeaveController::class, 'index'])->name('admin.leaves.index');
+    Route::post('/admin/leaves', [LeaveController::class, 'store'])->name('admin.leaves.store');
+    Route::get('/admin/leaves/create', [LeaveController::class, 'create'])->name('admin.leaves.create');
+    Route::get('/admin/leaves/{leave}/edit', [LeaveController::class, 'edit'])->name('admin.leaves.edit');
+    Route::put('/admin/leaves/{leave}', [LeaveController::class, 'update'])->name('admin.leaves.update');
+    Route::delete('/leaves/{leave}', [LeaveController::class, 'destroy'])->name('admin.leaves.destroy');
+
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create');
@@ -58,6 +66,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
 Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/staff/dashboard', [StaffController::class, 'StaffDashboard'])->name('staff.dashboard');
+    Route::get('/staff/leaves', [LeaveController::class, 'empIndex'])->name('staff.leaves.index');
     Route::get('/staff/leaves/create', [LeaveController::class, 'empCreate'])->name('staff.leaves.create');
     Route::post('/staff/leaves', [LeaveController::class, 'empStore'])->name('staff.leaves.store');
 
