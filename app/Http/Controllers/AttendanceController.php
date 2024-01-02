@@ -8,13 +8,18 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Retrieve today's attendance records
         $todayAttendances = Attendance::whereDate('date', Carbon::today())->get();
 
-        // Pass the data to the view
-        return view('admin.attendances.index', compact('todayAttendances'));
+        // Check if a date filter is provided
+        if ($request->has('filter_date')) {
+            $filteredDate = $request->input('filter_date');
+            $todayAttendances = Attendance::whereDate('created_at', $filteredDate)->get();
+        }
+
+        return view('admin.attendances.index', ['todayAttendances' => $todayAttendances]);
     }
 
 

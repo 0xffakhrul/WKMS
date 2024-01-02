@@ -32,8 +32,8 @@ class UserController extends Controller
     {
         $formFields = $request->validate([
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|numeric|digits:10',
-            'email' => 'required|email|max:255',
+            'phone_number' => 'required|regex:/^01[0-9]\d{7,8}$/',
+            'email' => 'required|email|max:255|unique:users',
             'hire_date' => 'required',
             'type' => 'required',
             'role' => 'required'
@@ -56,11 +56,11 @@ class UserController extends Controller
     {
         $formFields = $request->validate([
             'name' => 'required|string|max:255',
-            'phone_number' => 'required|numeric|digits:10',
+            'phone_number' => 'required|regex:/^01[0-9]\d{7,8}$/',
             'email' => 'required|email|max:255',
             'hire_date' => 'required',
             'type' => 'required',
-            'role' => 'required|in:1,2',
+            'role' => 'required',
         ]);
 
         $user->update($formFields);
