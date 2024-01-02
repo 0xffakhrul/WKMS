@@ -1,13 +1,12 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-y-6">
-            <div class="flex justify-between">
-                <div class=" text-gray-900 text-3xl font-bold">
+            <div class="flex justify-between items-center pt-10">
+                <div class=" text-gray-900 font-bold text-2xl">
                     {{ __('Employees List') }}
                 </div>
-                <button class="px-4 py-2 rounded-lg font-bold bg-green-600 text-white">
-                    <a href="{{ route('admin.users.create') }}">New Employee</a>
-                </button>
+                <button class="px-4 py-2 rounded-lg font-bold bg-green-600 text-white"><a
+                        href="{{ route('admin.users.create') }}">New Employee</a> </button>
             </div>
             <div class="relative overflow-x-auto sm:rounded-lg bg-white">
                 <label for="table-search" class="sr-only">Search</label>
@@ -38,7 +37,8 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
-                                <td class="px-6 py-4">{{ $loop->index + 1 }}</td>
+                                <td class="px-6 py-4">
+                                    {{ $users->perPage() * ($users->currentPage() - 1) + $loop->iteration }}</td>
                                 <td class="px-6 py-4">{{ $user->name }}</td>
                                 <td class="px-6 py-4">{{ $user->email }}</td>
                                 <td class="px-6 py-4">{{ $user->phone_number }}</td>
@@ -61,7 +61,7 @@
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-4 flex gap-x-3">
+                                <td class="px-6 py-4 flex gap-x-3 items-center">
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="text-blue-600 hover:underline inline-flex items-center justify-center outline-none gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -90,10 +90,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+                <div class="py-4 px-6">
                     {{ $users->links() }}
-                </nav>
-                
+                </div>
             </div>
         </div>
     </div>
