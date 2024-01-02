@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto px-8 flex flex-col gap-y-6">
             <div>
-                <div class=" text-gray-900 text-3xl font-bold">
+                <div class="text-gray-900 text-2xl font-bold pt-10">
                     {{ __('New Employee') }}
                 </div>
             </div>
@@ -10,19 +10,19 @@
                 <form method="POST" action="{{ route('admin.users.store') }}" class="p-6">
                     @csrf
                     <div class="grid grid-cols-2 gap-x-8">
-                        <div class="">
+                        <div>
                             <div class="pb-4">
-                                <label for="first_name" class="block mb-2 text-sm font-medium">Name</label>
-                                <input type="text" id="first_name" name="name"
+                                <label for="name" class="block mb-2 text-sm font-medium">Name</label>
+                                <input type="text" id="name" name="name"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="John" required />
+                                    placeholder="John" value="{{ old('name') }}" required />
                             </div>
 
                             <div class="pb-4">
                                 <label for="email" class="block mb-2 text-sm font-medium">Email</label>
-                                <input type="email" id="first_name" name="email"
+                                <input type="email" id="email" name="email"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="John" required />
+                                    placeholder="john@example.com" value="{{ old('email') }}" required />
                             </div>
 
                             <div class="pb-4">
@@ -30,23 +30,29 @@
                                     Type</label>
                                 <select id="employment_type" name="type"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    <option value="full_time">Full-Time</option>
-                                    <option value="part_time">Part-Time</option>
+                                    <option value="full_time" {{ old('type') == 'full_time' ? 'selected' : '' }}>
+                                        Full-Time</option>
+                                    <option value="part_time" {{ old('type') == 'part_time' ? 'selected' : '' }}>
+                                        Part-Time</option>
                                 </select>
                             </div>
 
                         </div>
 
-                        <div class="">
+                        <div>
                             <div class="pb-4">
-                                <label for="username" class="block mb-2 text-sm font-medium">Phone No.</label>
-                                <input type="tel" id="first_name" name="phone_number"
+                                <label for="phone_number" class="block mb-2 text-sm font-medium">Phone No.</label>
+                                <input type="tel" id="phone_number" name="phone_number"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="John" required />
+                                    placeholder="123-456-7890" value="{{ old('phone_number') }}" required />
+
+                                @error('phone_number')
+                                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="pb-4">
-                                <label for="email" class="block mb-2 text-sm font-medium">Hire Date</label>
+                                <label for="hire_date" class="block mb-2 text-sm font-medium">Hire Date</label>
                                 <input type="date" id="hire_date" name="hire_date" value="{{ old('hire_date') }}"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="Select date" required>
@@ -56,8 +62,8 @@
                                 <label for="role" class="block mb-2 text-sm font-medium">Role</label>
                                 <select id="role" name="role"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                    <option value="2">Employee</option>
-                                    <option value="1">Admin</option>
+                                    <option value="2" {{ old('role') == '2' ? 'selected' : '' }}>Employee</option>
+                                    <option value="1" {{ old('role') == '1' ? 'selected' : '' }}>Admin</option>
                                 </select>
                             </div>
 
