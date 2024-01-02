@@ -1,18 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 text-5xl font-bold">
-                    Welcome to WKMS
+        <div class="max-w-7xl mx-auto px-8 pt-24">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg px-10 py-6">
+                <div class="p-6 text-gray-900 text-4xl font-bold">
+                    Welcome to Watak Kopi Management System
                 </div>
                 <div class="p-6 text-gray-900 text-lg font-bold">
-                    
+                    @if (auth()->user()->role == 1)
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 py-3 bg-green-600 rounded-lg text-white">Go
+                            to Admin Dashboard</a>
+                    @elseif(auth()->user()->role == 2)
+                        <a href="{{ route('staff.dashboard') }}" class="px-4 py-3 bg-green-600 rounded-lg text-white">Go
+                            to Staff Dashboard</a>
+                            
+                    @endif
                 </div>
             </div>
         </div>
