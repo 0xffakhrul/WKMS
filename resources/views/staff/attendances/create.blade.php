@@ -8,22 +8,27 @@
             </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 @if ($userHasRegisteredAttendance)
-                    <p class="text-red-500 p-6">You have already registered your attendance for the day.</p>
+                    <p class="text-green-600 font-semibold text-center">You have already registered your
+                        attendance for
+                        the day.
+                    </p>
                 @else
                     <form method="post" action="{{ route('staff.attendances.store') }}" class="p-6">
                         @csrf
 
                         <div class="pb-4">
-                            <label for="action" class="block text-gray-700">Select Action:</label>
-                            <select name="action" id="action"
-                                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                <option value="clock_in">Clock In</option>
-                                <option value="clock_out">Clock Out</option>
-                            </select>
+                            <label class="block text-gray-700 pb-2 font-bold">Select Action:</label>
+                            <div class="flex flex-col gap-3">
+                                <button type="submit" name="action" value="clock_in"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center ">
+                                    Clock In
+                                </button>
+                                <button type="submit" name="action" value="clock_out"
+                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
+                                    Clock Out
+                                </button>
+                            </div>
                         </div>
-
-                        <button type="submit"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
                     </form>
                 @endif
             </div>

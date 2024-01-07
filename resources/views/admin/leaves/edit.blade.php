@@ -59,32 +59,29 @@
                     </div>
 
                     <div class="flex gap-x-2">
-                        @if ($leave->status != 'approved')
+                        @if ($leave->status !== 'approved' && $leave->status !== 'rejected')
                             <button type="submit" name="status" value="approved"
-                                class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                                class="text-white font-semibold bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                                 Approve
                             </button>
                         @endif
-
                         @if ($leave->status != 'approved' && $leave->status != 'rejected')
-                            <button type="button" onclick="openRejectModal()"
-                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-centerg-blue-800">
+                            <button type="submit" name="status" value="rejected"
+                                class="text-white font-semibold bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-centerg-blue-800">
                                 Reject
                             </button>
                         @endif
-
-                        <button type="button" data-modal-target="add-user-modal" data-modal-toggle="add-user-modal"
-                            class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Add user
-                        </button>
+                        @if ($leave->status === 'approved' || $leave->status === 'rejected')
+                            <div class="mt-4 p-4 bg-gray-100 rounded-md">
+                                <p class="text-sm font-semibold">
+                                    This leave request can no longer have actions as it has already been
+                                    {{ $leave->status }}.
+                                </p>
+                            </div>
+                        @endif
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

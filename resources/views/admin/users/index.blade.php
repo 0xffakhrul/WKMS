@@ -9,21 +9,31 @@
                         href="{{ route('admin.users.create') }}">New Employee</a> </button>
             </div>
             <div class="relative overflow-x-auto sm:rounded-lg bg-white">
-                <label for="table-search" class="sr-only">Search</label>
-                <div class="relative m-4">
-                    <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-950" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
+                <form action="{{ route('admin.users.index') }}" method="GET">
+                    <label for="table-search" class="sr-only">Search</label>
+                    <div class="flex items-center">
+                        <div class="relative m-4">
+                            <div
+                                class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-950" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                            <input type="text" name="search" id="table-search"
+                                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 "
+                                placeholder="Search" value="{{ $search }}">
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-600 text-white">Search</button>
+                        </div>
                     </div>
-                    <input type="text" id="table-search"
-                        class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 "
-                        placeholder="Search">
-                </div>
+                </form>
+
                 <table class="w-full text-sm text-left rtl:text-right text-gray-950">
-                    <thead class="text-xs text-gray-950 uppercase bg-gray-50">
+                    <thead class="text-xs text-gray-950 uppercase bg-gray-50 border-b border-t border-gray-200">
                         <tr>
                             <th class="px-6 py-3.5">No.</th>
                             <th class="px-6 py-3.5">Name</th>

@@ -3,10 +3,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-y-6">
             <div class="flex justify-between items-center pt-10">
                 <div class=" text-gray-900 font-bold text-2xl">
-                    {{ __('Leave Requests List') }}
+                    {{ __('Payrolls List') }}
                 </div>
-                <button class="px-4 py-2 rounded-lg font-bold bg-green-600 text-white"><a
-                        href="{{ route('staff.leaves.create') }}">New Leave Requests</a> </button>
+                {{-- <button class="px-4 py-2 rounded-lg font-bold bg-green-600 text-white"><a
+                        href="{{ route('staff.payrolls.create') }}">New Leave Requests</a> </button> --}}
             </div>
             <div class="relative overflow-x-auto rounded-lg bg-white">
                 <label for="table-search" class="sr-only">Search</label>
@@ -27,48 +27,36 @@
                         <tr>
                             <th class="px-6 py-3.5">No.</th>
                             <th class="px-6 py-3.5">Employee</th>
-                            <th class="px-6 py-3.5">Start Date</th>
-                            <th class="px-6 py-3.5">End Date</th>
-                            <th class="px-6 py-3.5">Leave Type</th>
+                            <th class="px-6 py-3.5">Salary</th>
+                            <th class="px-6 py-3.5">Pay Date</th>
                             <th class="px-6 py-3.5">Status</th>
                             <th class="px-6 py-3.5"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($leaves as $leave)
+                        @foreach ($payrolls as $payroll)
                             <tr class="bg-white border-b border-gray-200 hover:bg-gray-50">
                                 <td class="px-6 py-4">{{ $loop->index + 1 }}</td>
                                 <td class="px-6 py-4">
-                                    @if ($leave->user)
-                                        {{ $leave->user->name }}
+                                    @if ($payroll->user)
+                                        {{ $payroll->user->name }}
                                     @else
                                         No Employee
                                     @endif
                                 </td>
-                                <td class="px-6 py-4">{{ $leave->start_date }}</td>
-                                <td class="px-6 py-4">{{ $leave->end_date }}</td>
+                                <td class="px-6 py-4">RM {{ $payroll->salary }}</td>
+                                <td class="px-6 py-4">{{ $payroll->pay_date }}</td>
                                 <td class="px-6 py-4">
-                                    @if ($leave->leave_type === 'annual')
-                                        Annual
-                                    @else
-                                        Sick
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if ($leave->status === 'approved')
+                                    @if ($payroll->status === 'released')
                                         <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400">Approved</span>
-                                    @elseif ($leave->status === 'rejected')
-                                        <span
-                                            class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded border border-red-400">Rejected</span>
+                                            class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded border border-green-400">Released</span>
                                     @else
                                         <span
                                             class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded border border-yellow-400">Pending</span>
                                     @endif
                                 </td>
-
-                                <td class="px-6 py-4 flex gap-x-3">
-                                    <a href="{{ route('staff.leaves.show', $leave->id) }}"
+                                <td class="px-6 py-4 flex gap-x-3 items-center">
+                                    <a href="{{ route('staff.payrolls.show', $payroll->id) }}"
                                         class="font-semibold text-blue-600 hover:underline inline-flex items-center justify-center outline-none gap-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -80,9 +68,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="py-4 px-6">
+                {{-- <div class="py-4 px-6">
                     {{ $leaves->links() }}
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -37,30 +37,28 @@
                         <h5 class="text-3xl font-bold tracking-tight text-gray-900 ">{{ $leaves->count() }}</h5>
                     </div>
                 </div>
-                <div class="grid gap-y-1 max-w-sm px-6 py-5 bg-white border border-gray-200 rounded-lg">
-                    <p class="font-normal text-sm text-gray-700">Attendance Rate</p>
-                    <h5 class="text-3xl font-bold tracking-tight text-gray-900 ">420</h5>
+                <div
+                    class="flex items-center gap-x-6 gap-y-1 max-w-sm px-6 py-5 bg-white border border-gray-200 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12">
+                        <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                        <path fill-rule="evenodd"
+                            d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z"
+                            clip-rule="evenodd" />
+                        <path
+                            d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
+                    </svg>
+
+                    <div>
+                        <p class="font-normal text-sm text-gray-700">Processed Payrolls</p>
+                        <h5 class="text-3xl font-bold tracking-tight text-gray-900 ">{{ $payrolls->count() }}</h5>
+                    </div>
                 </div>
             </div>
             <div class="">
                 <div class="max-w-7xl mx-auto flex flex-col gap-y-6">
                     <div class="relative overflow-x-auto sm:rounded-lg bg-white">
-                        <div class="text-gray-900 text-base font-semibold px-4 py-3 border-b">
+                        <div class="text-gray-900 text-base font-semibold px-4 py-3">
                             {{ __('Latest Employees') }}
-                        </div>
-                        <label for="table-search" class="sr-only">Search</label>
-                        <div class="relative m-4">
-                            <div
-                                class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-950" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="text" id="table-search"
-                                class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 "
-                                placeholder="Search" />
                         </div>
                         @if ($users->isEmpty())
                             <p class="text-gray-500 text-center py-4">No employees found.</p>
@@ -123,22 +121,8 @@
                 <div class="grid grid-cols-2 gap-x-6">
                     <div class="flex flex-col gap-y-6 pt-7">
                         <div class="relative overflow-x-auto sm:rounded-lg bg-white">
-                            <div class="text-gray-900 text-base font-semibold px-4 py-3 border-b">
+                            <div class="text-gray-900 text-base font-semibold px-4 py-3">
                                 {{ __('Today\'s Attendance') }}
-                            </div>
-                            <label for="table-search" class="sr-only">Search</label>
-                            <div class="relative m-4">
-                                <div
-                                    class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-950" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                </div>
-                                <input type="text" id="table-search"
-                                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 "
-                                    placeholder="Search">
                             </div>
                             @if ($todayAttendances->isEmpty())
                                 <p class="text-gray-500 text-center py-4">No attendance records found.</p>
@@ -184,22 +168,8 @@
                     </div>
                     <div class="flex flex-col gap-y-6 pt-7">
                         <div class="relative overflow-x-auto sm:rounded-lg bg-white">
-                            <div class="text-gray-900 text-base font-semibold px-4 py-3 border-b">
+                            <div class="text-gray-900 text-base font-semibold px-4 py-3 ">
                                 {{ __('Pending Leave Requests') }}
-                            </div>
-                            <label for="table-search" class="sr-only">Search</label>
-                            <div class="relative m-4">
-                                <div
-                                    class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-950" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                </div>
-                                <input type="text" id="table-search"
-                                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 "
-                                    placeholder="Search">
                             </div>
                             <table class="w-full text-sm text-left rtl:text-right text-gray-950">
                                 <thead
@@ -234,14 +204,6 @@
                 </div>
 
             </div>
-            {{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __('Admin') }}
-                </div>
-                <a href="{{ route('admin.users.create') }}">Create</a>
-                <a href="{{ route('admin.users.index') }}">Index</a>
-
-            </div> --}}
         </div>
     </div>
 </x-app-layout>

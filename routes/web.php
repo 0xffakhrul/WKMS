@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::get('/dashboard', function () {
@@ -51,6 +52,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/admin/leaves/create', [LeaveController::class, 'create'])->name('admin.leaves.create');
     Route::get('/admin/leaves/{leave}/edit', [LeaveController::class, 'edit'])->name('admin.leaves.edit');
     Route::put('/admin/leaves/{leave}', [LeaveController::class, 'update'])->name('admin.leaves.update');
+    Route::post('/admin/leaves/{leave}/reject', [LeaveController::class, 'reject'])
+        ->name('admin.leaves.reject');
     Route::delete('/leaves/{leave}', [LeaveController::class, 'destroy'])->name('admin.leaves.destroy');
 
 
@@ -62,6 +65,10 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
     Route::get('/admin/attendances', [AttendanceController::class, 'index'])->name('admin.attendances.index');
+
+    Route::get('/admin/payrolls', [PayrollController::class, 'index'])->name('admin.payrolls.index');
+    Route::get('/admin/payrolls/create', [PayrollController::class, 'create'])->name('admin.payrolls.create');
+    Route::get('/admin/payrolls/{payroll}', [PayrollController::class, 'show'])->name('admin.payrolls.show');
 });
 
 Route::middleware(['auth', 'role:2'])->group(function () {
@@ -69,7 +76,12 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::get('/staff/leaves', [LeaveController::class, 'empIndex'])->name('staff.leaves.index');
     Route::get('/staff/leaves/create', [LeaveController::class, 'empCreate'])->name('staff.leaves.create');
     Route::post('/staff/leaves', [LeaveController::class, 'empStore'])->name('staff.leaves.store');
+    Route::get('/staff/leaves/{leave}', [LeaveController::class, 'show'])->name('staff.leaves.show');
 
+    Route::get('/staff/attendances', [AttendanceController::class, 'empIndex'])->name('staff.attendances.index');
     Route::get('/staff/attendances/create', [AttendanceController::class, 'empCreate'])->name('staff.attendances.create');
     Route::post('/staff/attendances', [AttendanceController::class, 'empStore'])->name('staff.attendances.store');
+
+    Route::get('/staff/payrolls', [PayrollController::class, 'empIndex'])->name('staff.payrolls.index');
+    Route::get('/staff/payrolls/{payroll}', [PayrollController::class, 'empShow'])->name('staff.payrolls.show');
 });
