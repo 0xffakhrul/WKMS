@@ -9,12 +9,20 @@ use Illuminate\Http\Request;
 class LeaveController extends Controller
 {
     //show all listings
-    public function index()
+    public function index(Request $request)
     {
-        $leaves = Leave::paginate(10); // Use the paginate method to get 10 leaves per page
+        $search = $request->input('search');
+        $leaves = Leave::when($search, function ($query) use ($search) {
+            $query->whereHas('user', function ($userQuery) use ($search) {
+                $userQuery->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('phone_number', 'like', '%' . $search . '%');
+            });
+        })->paginate(10);
 
-        return view('admin.leaves.index', ['leaves' => $leaves]);
+        return view('admin.leaves.index', compact('leaves', 'search'));
     }
+
 
     //create form
     public function create()
@@ -46,7 +54,8 @@ class LeaveController extends Controller
         Leave::create($formFields);
 
         // Redirect to the leaves index page or show page
-        return redirect()->route('admin.leaves.index')->with('message', 'Leave created successfully!');
+        toastr()->addSuccess('Leave created successfully!');
+        return redirect()->route('admin.leaves.index');
     }
 
 
@@ -64,14 +73,38 @@ class LeaveController extends Controller
 
         $leave->update($formFields);
 
-        return redirect('/admin/leaves')->with('message', 'Leave updated successfully!');
+        toastr()->addSuccess('Leave updated successfully!');
+        return redirect('/admin/leaves');
     }
 
-    //delete employee
+    public function reject(Request $request, $id)
+    {
+        $request->validate([
+            'rejection_reason' => 'required|string',
+        ]);
+
+        $leave = Leave::findOrFail($id);
+        $leave->status = 'rejected';
+        $leave->rejection_reason = $request->input('rejection_reason');
+        $leave->save();
+
+        // Return a JSON response indicating success
+        toastr()->addSuccess('Leave request rejected successfully');
+        return response()->json(['success' => true, 'message' => 'Leave request rejected successfully']);
+    }
+
     public function destroy(Leave $leave)
     {
         $leave->delete();
-        return redirect('/admin/leaves')->with('message', 'Employee deleted successfully');
+        toastr()->addSuccess('Request deleted successfully');
+        return redirect('/admin/leaves');
+    }
+
+    public function show(Leave $leave)
+    {
+        return view('staff.leaves.show', [
+            'leave' => $leave,
+        ]);
     }
 
     //create form
@@ -93,7 +126,9 @@ class LeaveController extends Controller
 
         // If a pending leave request is found, redirect back with an error message
         if ($pendingLeave) {
-            return redirect()->route('staff.dashboard')->with('error', 'You already have a pending leave request.');
+            // Set an error toast, with a title
+            toastr()->addError('You already have a pending request.');
+            return redirect()->route('staff.leaves.index');
         }
 
         // Validate the form data
@@ -109,7 +144,8 @@ class LeaveController extends Controller
         Leave::create($formFields);
 
         // Redirect to the staff dashboard or show page
-        return redirect()->route('staff.dashboard')->with('success', 'Leave request submitted successfully!');
+        toastr()->addSuccess('Leave request submitted successfully!');
+        return redirect()->route('staff.dashboard');
     }
 
     //show all listings
