@@ -41,8 +41,8 @@ class UserController extends Controller
 
         $formFields['password'] = bcrypt('password');
         User::create($formFields);
-
-        return redirect('/admin/users')->with('message', 'Employee created successfully!');
+        toastr()->addSuccess('Employee created successfully!');
+        return redirect('/admin/users');
     }
 
     // Show the form for editing the specified user.
@@ -64,14 +64,15 @@ class UserController extends Controller
         ]);
 
         $user->update($formFields);
-
-        return redirect('/admin/users')->with('message', 'User updated successfully!');
+        toastr()->addSuccess('Employee updated successfully!');
+        return redirect('/admin/users');
     }
 
     //delete employee
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/admin/users')->with('message', 'Employee deleted successfully');
+        toastr()->addSuccess('Employee deleted successfully');
+        return redirect('/admin/users');
     }
 }
