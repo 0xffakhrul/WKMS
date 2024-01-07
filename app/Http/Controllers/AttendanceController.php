@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,17 @@ class AttendanceController extends Controller
         return view('admin.attendances.index', ['todayAttendances' => $todayAttendances]);
     }
 
+    public function empIndex()
+    {
+        $user_id = auth()->id();
+        $attendances = Attendance::where('user_id', auth()->user()->id)->paginate(10);
+        $userHasRegisteredAttendance = Attendance::where('user_id', $user_id)
+            ->whereDate('date', Carbon::today())
+            ->whereNotNull('check_in_time')
+            ->whereNotNull('check_out_time')
+            ->exists();
+        return view('staff.attendances.index', ['attendances' => $attendances], ['userHasRegisteredAttendance' => $userHasRegisteredAttendance]);
+    }
 
     // create form
     public function empCreate()
@@ -79,8 +91,9 @@ class AttendanceController extends Controller
         } else {
             // Handle other cases or show an error message
             $message = 'Invalid action or duplicate entry.';
+            $flashType = 'danger';
         }
 
-        return redirect()->route('staff.dashboard')->with('success', $message);
+        return redirect()->route('staff.dashboard')->with($flashType ?? 'success', $message);
     }
 }
