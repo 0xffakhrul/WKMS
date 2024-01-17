@@ -163,8 +163,7 @@
                             clip-rule="evenodd" />
                         {{-- <div class="flex justify-between"> --}}
                         <span class="ms-3">{{ __('Attendance') }}</span>
-                        <span
-                            class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded border border-yellow-400 ml-3">{{ 69 }}</span>
+
                     </x-nav-link>
                 </li>
                 <li>
